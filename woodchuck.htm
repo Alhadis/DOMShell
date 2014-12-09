@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>How much apply could Function.prototype.apply apply if Function.prototype.apply could apply?</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+</head>
+
+<body>
+	<!-- IE, pls -->
+	<textarea id="cli-pls" style="width: 40em; height: 20em;">alert("Retrasado");</textarea><br/>
+	<script type="text/javascript">var cliPls	=	document.getElementById("cli-pls");</script>
+	<button onclick="eval(cliPls.value);">Execute</button>
+
+	<p>Something</p>
+<script type="text/html">
+	
+	var listar	=	function(){
+		for(var i = 0; i < arguments.length; ++i){
+			console.log(arguments[i]);
+		}
+	};
+
+	listar.apply	=	function(fn, args){
+		return Function.prototype.apply.call(this, fn, args);
+	};
+
+	function wrapShitUp(){
+		listar.apply(this, arguments);
+		//Function.prototype.apply.call(listar, this, arguments);
+	};
+	
+	var p	=	document.getElementsByTagName("p")[0];
+	p.attachEvent("onpropertychange", function(e){
+		alert("Yep.");
+	});
+
+	
+</script>
+
+<script type="text/javascript">
+	var p	=	document.getElementsByTagName("p")[0];
+	delete p.className;
+
+	Object.defineProperty(Element.prototype, "className", {
+		get:	function(){ return this.getAttribute("class"); },
+		set:	function(input){
+			console.log("className set to...");
+			this.setAttribute("class", input);
+		}
+	});
+	
+</script>
+</body>
+</html>
